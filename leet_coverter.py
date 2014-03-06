@@ -102,7 +102,7 @@ def main():
             for line in lines:
                 print convert_text(line)
         else:
-            print "Not a file"
+            print "Can't find file"
     else:
         text = raw_input("Text to convert:")
         #print "Translation: ", convert(text)
