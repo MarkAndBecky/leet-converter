@@ -38,10 +38,9 @@ leet_words = {
     "hacker": ["Haxx0r", "Haxxr"],
     "please": ["pl0x"],
     "what": ["wut", "wat", "whut"],
-    "you": ["u"],
+    "you": ["u", "j00"],
     "are": ["r"],
     "why": ["y"],
-    "you": ["j00"],
     "leet": ["1337", "|33t"]
 }
 
