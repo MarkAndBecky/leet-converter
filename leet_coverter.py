@@ -89,14 +89,11 @@ def main():
     print "Translation 3: ", convert_text(text)
 
     input_file = open(raw_input("File to convert:"))
-
-    linecount = len(input_file.readlines())
-    input_file.seek(0)
-
-    for i in range (1,linecount+1):
-        print convert_text(input_file.readline())
-
+    lines = input_file.readlines()
     input_file.close()
+
+    for line in lines:
+        print convert_text(line)
     
 if __name__ == '__main__':
     main()
