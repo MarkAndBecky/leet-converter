@@ -37,8 +37,7 @@ def convert(input_word):
 
     for i in input_word:
         if i.upper() not in leet_alphabet.keys():
-            print input_word, "is not a valid input word"
-            break
+            leet_word += i
         else:
             leet_word += choice(leet_alphabet[i.upper()])
 
@@ -49,17 +48,13 @@ def convert(input_word):
 def convert_vowels(input_word):
 
     leet_word = ""
-    vowels = ["A", "E", "I", "O", "U"]
+    vowels = ["A", "E", "I", "O", "U", " "]
 
     for i in input_word:
-        if i.upper() not in leet_alphabet.keys():
-            print input_word, "is not a valid input word"
-            break
+        if i.upper() in vowels:
+            leet_word += choice(leet_alphabet[i.upper()])
         else:
-            if i.upper() in vowels:
-                leet_word += choice(leet_alphabet[i.upper()])
-            else:
-                leet_word += i
+            leet_word += i
 
     print leet_word
     return leet_word
