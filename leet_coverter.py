@@ -31,6 +31,21 @@ leet_alphabet = {
 }
 
 
+leet_words = {
+    "and": ["nd"],
+    "the": ["teh", "t3h"],
+    "like": ["liek"],
+    "hacker": ["Haxx0r", "Haxxr"],
+    "please": ["pl0x"],
+    "what": ["wut", "wat", "whut"],
+    "you": ["u"],
+    "are": ["r"],
+    "why": ["y"],
+    "you": ["j00"],
+    "leet": ["1337", "|33t"]
+}
+
+
 def convert(input_word):
 
     leet_word = ""
@@ -41,9 +56,7 @@ def convert(input_word):
         else:
             leet_word += choice(leet_alphabet[i.upper()])
 
-    print leet_word
     return leet_word
-
 
 def convert_vowels(input_word):
 
@@ -56,15 +69,25 @@ def convert_vowels(input_word):
         else:
             leet_word += i
 
-    print leet_word
     return leet_word
-    
-    
-def main():
 
-    word = raw_input("Text to convert:")
-    convert(word)
-    convert_vowels(word)
+def convert_text(input_text):
+
+    split_text = input_text.split()
+    leet_text = []
+
+    for i in split_text:
+        if i.lower() in leet_words.keys():
+            leet_text.append(choice(leet_words[i.lower()]))
+        else:
+            leet_text.append(convert_vowels(i))
+    return " ".join(leet_text)
+
+def main():
+    text = raw_input("Text to convert:")
+    print "Translation 1: ", convert(text)
+    print "Translation 2: ", convert_vowels(text)
+    print "Translation 3: ", convert_text(text)
 
 if __name__ == '__main__':
     main()
