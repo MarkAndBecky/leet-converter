@@ -78,7 +78,7 @@ def convert_text(input_text):
     leet_text = []
 
     for word in split_text:
-        if word[len(word)-1].lower() not in leet_alphabet.keys():
+        if word[len(word)-1].upper() not in leet_alphabet.keys():
             trunc_word = word[0:len(word)-1]
             if trunc_word.lower() in leet_words.keys():
                 leet_text.append("".join([choice(leet_words[trunc_word.lower()]), word[len(word)-1]]))
