@@ -62,7 +62,7 @@ def convert_vowels(input_word):
     
 def main():
 
-    word = raw_input("Word to convert:")
+    word = raw_input("Text to convert:")
     convert(word)
     convert_vowels(word)
 
