@@ -37,7 +37,7 @@ def convert(input_word):
 
     for i in input_word:
         if i.upper() not in leet_alphabet.keys():
-            print "Not a valid input word"
+            print input_word, "is not a valid input word"
             break
         else:
             leet_word += choice(leet_alphabet[i.upper()])
@@ -45,9 +45,31 @@ def convert(input_word):
     print leet_word
     return leet_word
 
+
+def convert_vowels(input_word):
+
+    leet_word = ""
+    vowels = ["A", "E", "I", "O", "U"]
+
+    for i in input_word:
+        if i.upper() not in leet_alphabet.keys():
+            print input_word, "is not a valid input word"
+            break
+        else:
+            if i.upper() in vowels:
+                leet_word += choice(leet_alphabet[i.upper()])
+            else:
+                leet_word += i
+
+    print leet_word
+    return leet_word
+    
+    
 def main():
 
-    convert(raw_input("Word to covert:"))
+    word = raw_input("Word to convert:")
+    convert(word)
+    convert_vowels(word)
 
 if __name__ == '__main__':
     main()
