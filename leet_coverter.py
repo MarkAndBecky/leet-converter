@@ -88,5 +88,15 @@ def main():
     print "Translation 2: ", convert_vowels(text)
     print "Translation 3: ", convert_text(text)
 
+    input_file = open(raw_input("File to convert:"))
+
+    linecount = len(input_file.readlines())
+    input_file.seek(0)
+
+    for i in range (1,linecount+1):
+        print convert_text(input_file.readline())
+
+    input_file.close()
+    
 if __name__ == '__main__':
     main()
