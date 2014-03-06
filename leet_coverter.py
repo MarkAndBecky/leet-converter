@@ -1,3 +1,5 @@
+import sys
+import os.path
 from random import choice
 
 leet_alphabet = {
@@ -91,17 +93,21 @@ def convert_text(input_text):
     return " ".join(leet_text)
 
 def main():
-    text = raw_input("Text to convert:")
-    print "Translation 1: ", convert(text)
-    print "Translation 2: ", convert_vowels(text)
-    print "Translation 3: ", convert_text(text)
+    if len(sys.argv) > 1:
+        if os.path.isfile(sys.argv[1]):
+            input_file = open(sys.argv[1])
+            lines = input_file.readlines()
+            input_file.close()
 
-    input_file = open(raw_input("File to convert:"))
-    lines = input_file.readlines()
-    input_file.close()
-
-    for line in lines:
-        print convert_text(line)
+            for line in lines:
+                print convert_text(line)
+        else:
+            print "Not a file"
+    else:
+        text = raw_input("Text to convert:")
+        #print "Translation: ", convert(text)
+        #print "Translation: ", convert_vowels(text)
+        print "Translation: ", convert_text(text)
     
 if __name__ == '__main__':
     main()
