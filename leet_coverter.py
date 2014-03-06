@@ -75,11 +75,19 @@ def convert_text(input_text):
     split_text = input_text.split()
     leet_text = []
 
-    for i in split_text:
-        if i.lower() in leet_words.keys():
-            leet_text.append(choice(leet_words[i.lower()]))
+    for word in split_text:
+        if word[len(word)-1].lower() not in leet_alphabet.keys():
+            trunc_word = word[0:len(word)-1]
+            if trunc_word.lower() in leet_words.keys():
+                leet_text.append("".join([choice(leet_words[trunc_word.lower()]), word[len(word)-1]]))
+            else:
+                leet_text.append("".join([convert_vowels(trunc_word), word[len(word)-1]]))
         else:
-            leet_text.append(convert_vowels(i))
+            if word.lower() in leet_words.keys():
+                leet_text.append(choice(leet_words[word.lower()]))
+            else:
+                leet_text.append(convert_vowels(word))
+                
     return " ".join(leet_text)
 
 def main():
