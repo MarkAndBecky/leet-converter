@@ -21,7 +21,7 @@ leet_alphabet = {
     "M": ["M", "m", "|\/|", "/\/\\", "/X\\"],
     "N": ["N", "n", "|\|", "/V"],
     "O": ["0", "()", "[]", "{}"],
-    "P": ["P", "p", "|o", "|O", "|>", "|*"],
+    "P": ["P", "p", "|O", "|*"],
     "Q": ["Q", "q", "(,)"],
     "R": ["R", "r", "|2"],
     "S": ["S", "s", "5", "$"],
@@ -75,13 +75,19 @@ leet_words = {
 def convert(input_word):
 
     leet_word = ""
+    vowels = ["A", "E", "I", "O", "U", " "]
+    consonant_convert = [0, 1]
 
     for i in input_word:
         if i.upper() not in leet_alphabet.keys():
             leet_word += i
-        else:
+        elif i.upper in vowels:
             leet_word += choice(leet_alphabet[i.upper()])
-
+        else:
+            if choice(consonant_convert) == 0:
+                leet_word += choice(leet_alphabet[i.upper()])
+            else:
+                leet_word += i
     return leet_word
 
 def convert_vowels(input_word):
