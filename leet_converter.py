@@ -7,31 +7,31 @@ from random import choice
 
 leet_alphabet = {
     "A": ["4", "/-\\", "/_\\", "@", "/\\"],
-    "B": ["B", "8","|3", "13", "|}", "|:", "|8", "18", "6", "|B"],
-    "C": ["<", "{", "[", "("],
-    "D": ["|)", "|}", "|]"],
-    "E": "3",
-    "F": ["|=", "ph", "|#", "|"],
-    "G": ["[-", "[+", "6"],
-    "H": ["|-|", "[-]", "{-}", "|=|", "[=]", "{=}"],
+    "B": ["B", "b", "8","|3", "13", "|8", "18", "6"],
+    "C": ["C", "c", "<", "{", "[", "("],
+    "D": ["D", "d", "|)", "|}"],
+    "E": ["3"],
+    "F": ["F", "f", "|=", "ph"],
+    "G": ["G", "g", "[+", "6"],
+    "H": ["H", "h", "|-|", "|=|"],
     "I": ["1", "|"],
-    "J": ["_|", "_/", "_7", "_)"],
-    "K": ["|<", "1<"],
-    "L": ["|_", "|,"],
-    "M": ["44", "|\/|", "^^", "/\/\\", "/X\\", "[]\/][", "[]V[]", "][\\\\//][", "//.", ".\\\\", "N\\"],
-    "N": ["|\|", "/\/", "/V", "][\\]["],
+    "J": ["J", "j", "_|", "_)"],
+    "K": ["K", "k", "|<", "1<"],
+    "L": ["L", "l", "|_"],
+    "M": ["M", "m", "|\/|", "/\/\\", "/X\\"],
+    "N": ["N", "n", "|\|", "/V"],
     "O": ["0", "()", "[]", "{}"],
-    "P": ["|o", "|O", "|>", "|*", "|D", "/o"],
-    "Q": ["O_", "9", "(,)"],
-    "R": ["|2", "12", ".-", "|^"],
-    "S": ["5", "$"],
-    "T": ["7", "+", "7`", "'|'"],
+    "P": ["P", "p", "|o", "|O", "|>", "|*"],
+    "Q": ["Q", "q", "(,)"],
+    "R": ["R", "r", "|2"],
+    "S": ["S", "s", "5", "$"],
+    "T": ["T","t", "7", "+"],
     "U": ["|_|", "\_\\", "/_/", "\_/", "(_)"],
-    "V": "\/",
-    "W": ["\/\/", "(/\)", "\^/", "|/\|", "\X/", "\\\\'", "'//"],
-    "X": ["%", "*", "><", "}{", ")("],
-    "Y": ["`/"],
-    "Z": ["2", "7_", ">_"],
+    "V": ["V", "v", "\/"],
+    "W": ["W","w", "\/\/", "\^/", "\X/"],
+    "X": ["X","x", "%", "*", "><"],
+    "Y": ["Y","y","`/"],
+    "Z": ["Z","z","2"],
     " ": " "
 }
 
@@ -46,7 +46,29 @@ leet_words = {
     "you": ["u", "j00"],
     "are": ["r"],
     "why": ["y"],
-    "leet": ["1337", "|33t"]
+    "leet": ["1337", "|33t"],
+    "bye": ["bai"],
+    "crap": ["carp"],
+    "cake": ["ceak"],
+    "dude": ["d00d"],
+    "from": ["form"],
+    "guys": ["guise"],
+    "hacks": ["h4x", "h4x0rz"],
+    "hi": ["hai"],
+    "cool": ["kewl"],
+    "master": ["mastah"],
+    "max": ["max0r"],
+    "maximum": ["max0r"],
+    "own": ["pwn"],
+    "fear": ["ph34", "phear", "ph34r", "ph33r"],
+    "power": ["powwah"],
+    "porn": ["pr0n"],
+    "sex": ["secks"],
+    "when": ["wen"],
+    "winner": ["winnar"],
+    "elite": ["1337", "|33t", "31337"],
+    "censored": ["c3n50red"],
+    "strong": ["stronk"],
 }
 
 
@@ -75,6 +97,7 @@ def convert_vowels(input_word):
 
     return leet_word
 
+
 def convert_text(input_text):
 
     split_text = input_text.split()
@@ -95,6 +118,28 @@ def convert_text(input_text):
                 
     return " ".join(leet_text)
 
+
+def convert_all_text(input_all_text):
+
+    split_text = input_all_text.split()
+    leet_text = []
+
+    for word in split_text:
+        if word[len(word)-1].upper() not in leet_alphabet.keys():
+            trunc_word = word[0:len(word)-1]
+            if trunc_word.lower() in leet_words.keys():
+                leet_text.append("".join([choice(leet_words[trunc_word.lower()]), word[len(word)-1]]))
+            else:
+                leet_text.append("".join([convert(trunc_word), word[len(word)-1]]))
+        else:
+            if word.lower() in leet_words.keys():
+                leet_text.append(choice(leet_words[word.lower()]))
+            else:
+                leet_text.append(convert(word))
+
+    return " ".join(leet_text)
+
+
 def main():
     if len(sys.argv) > 1:
         if os.path.isfile(sys.argv[1]):
@@ -110,7 +155,8 @@ def main():
         text = raw_input("Text to convert:")
         #print "Translation: ", convert(text)
         #print "Translation: ", convert_vowels(text)
-        print "Translation: ", convert_text(text)
+        print "Translation (leet words and vowels only: ", convert_text(text)
+        print "Translation (leet words and all letters): ", convert_all_text(text)
     
 if __name__ == '__main__':
     main()
