@@ -13,7 +13,7 @@ leet_alphabet = {
     "E": ["3"],
     "F": ["F", "f", "|=", "ph"],
     "G": ["G", "g", "[+", "6"],
-    "H": ["H", "h", "|-|", "|=|"],
+    "H": ["H", "h"],
     "I": ["1", "|"],
     "J": ["J", "j", "_|", "_)"],
     "K": ["K", "k", "|<", "1<"],
@@ -154,15 +154,14 @@ def main():
             input_file.close()
 
             for line in lines:
-                print convert_text(line)
+                print convert_all_text(line)
         else:
             print "Can't find file"
     else:
         text = raw_input("Text to convert:")
         #print "Translation: ", convert(text)
         #print "Translation: ", convert_vowels(text)
-        print "Translation (leet words and vowels only: ", convert_text(text)
-        print "Translation (leet words and all letters): ", convert_all_text(text)
+        print convert_all_text(text)
     
 if __name__ == '__main__':
     main()
