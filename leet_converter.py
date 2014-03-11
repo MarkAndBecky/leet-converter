@@ -184,16 +184,19 @@ def main():
     parser = argparse.ArgumentParser(description="""Converts text to leet. 'Standard' leet words are always converted.
     By default vowels in non-standard leet words are always converted plus a proportion of consonants.""")
     group = parser.add_mutually_exclusive_group()
-    parser.add_argument("-f", "--file", help="Input file name to convert.")
+    parser.add_argument("-f", "--file", nargs="*", help="Input filename(s) to convert.")
     group.add_argument("-v", "--vowels", action="store_true", help="Convert only vowels in non-standard leet words.")
     group.add_argument("-e", "--extreme", action="store_true", help="Convert all letters in non-standard leet words.")
 
     args = parser.parse_args()
 
+    lines = []
+
     if args.file:
-        input_file = open(args.file)
-        lines = input_file.readlines()
-        input_file.close()
+        for file in args.file:
+            input_file = open(file)
+            lines = lines + input_file.readlines()
+            input_file.close()
     else:
         lines = sys.stdin.readlines()
 
