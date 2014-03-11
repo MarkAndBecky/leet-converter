@@ -36,7 +36,6 @@ leet_alphabet = {
     " ": " "
 }
 
-
 leet_words = {
     "and": ["nd"],
     "the": ["teh", "t3h"],
@@ -74,7 +73,9 @@ leet_words = {
 
 
 def convert(input_word):
-    '''Converts a single word to leet; converts every vowel and a proportion of consonants'''
+    """
+    Convert a single word to leet by converting every vowel and some consonants.
+    """
     leet_word = ""
     vowels = ["A", "E", "I", "O", "U", " "]
     consonant_convert = [0, 1]
@@ -91,8 +92,11 @@ def convert(input_word):
                 leet_word += i
     return leet_word
 
+
 def convert_vowels(input_word):
-    '''Converts a single word to leet; converts vowels only'''
+    """
+    Converts a single word to leet; converts vowels only.
+    """
     leet_word = ""
     vowels = ["A", "E", "I", "O", "U", " "]
 
@@ -106,8 +110,11 @@ def convert_vowels(input_word):
 
     return leet_word
 
+
 def convert_extreme(input_word):
-    '''Converts a single word to leet; converts every letter'''
+    """
+    Converts a single word to leet; converts every letter.
+    """
     leet_word = ""
 
     for i in input_word:
@@ -119,7 +126,9 @@ def convert_extreme(input_word):
 
 
 def convert_vowels_text(input_text):
-    '''Converts text to leet; converts "standard" leet words and converts only vowels in other words'''
+    """
+    Converts text to leet; converts "standard" leet words and converts only vowels in other words
+    """
     split_text = input_text.split()
     leet_text = []
 
@@ -140,7 +149,9 @@ def convert_vowels_text(input_text):
 
 
 def convert_all_text(input_all_text):
-    '''Converts text to leet; converts "standard" leet words and converts all vowels and a proportion of consonants in other words'''
+    """
+    Converts text to leet; converts "standard" leet words and converts all vowels and a proportion of consonants in other words
+    """
     split_text = input_all_text.split()
     leet_text = []
 
@@ -159,8 +170,11 @@ def convert_all_text(input_all_text):
 
     return " ".join(leet_text)
 
+
 def convert_extreme_text(input_all_text):
-    '''Converts text to leet; converts "standard" leet words and converts all letters in other words'''
+    """
+    Converts text to leet; converts "standard" leet words and converts all letters in other words
+    """
     split_text = input_all_text.split()
     leet_text = []
 
@@ -179,8 +193,8 @@ def convert_extreme_text(input_all_text):
 
     return " ".join(leet_text)
 
-def main():
 
+def main():
     parser = argparse.ArgumentParser(description="""Converts text to leet. 'Standard' leet words are always converted.
     By default vowels in non-standard leet words are always converted plus a proportion of consonants.""")
     group = parser.add_mutually_exclusive_group()
@@ -225,6 +239,7 @@ def main():
         #print "Translation: ", convert(text)
         #print "Translation: ", convert_vowels(text)
         print convert_all_text(text)'''
-    
+
+
 if __name__ == '__main__':
     main()
