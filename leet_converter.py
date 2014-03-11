@@ -3,6 +3,7 @@
 
 import sys
 import os.path
+import argparse
 from random import choice
 
 leet_alphabet = {
@@ -73,7 +74,7 @@ leet_words = {
 
 
 def convert(input_word):
-
+    '''Converts a single word to leet; converts every vowel and a proportion of consonants'''
     leet_word = ""
     vowels = ["A", "E", "I", "O", "U", " "]
     consonant_convert = [0, 1]
@@ -91,21 +92,34 @@ def convert(input_word):
     return leet_word
 
 def convert_vowels(input_word):
-
+    '''Converts a single word to leet; converts vowels only'''
     leet_word = ""
     vowels = ["A", "E", "I", "O", "U", " "]
 
     for i in input_word:
-        if i.upper() in vowels:
+        if i.upper() not in leet_alphabet.keys():
+            leet_word += i
+        elif i.upper() in vowels:
             leet_word += choice(leet_alphabet[i.upper()])
         else:
             leet_word += i
 
     return leet_word
 
+def convert_extreme(input_word):
+    '''Converts a single word to leet; converts every letter'''
+    leet_word = ""
 
-def convert_text(input_text):
+    for i in input_word:
+        if i.upper() not in leet_alphabet.keys():
+            leet_word += i
+        else:
+            leet_word += choice(leet_alphabet[i.upper()])
+    return leet_word
 
+
+def convert_vowels_text(input_text):
+    '''Converts text to leet; converts "standard" leet words and converts only vowels in other words'''
     split_text = input_text.split()
     leet_text = []
 
@@ -126,7 +140,7 @@ def convert_text(input_text):
 
 
 def convert_all_text(input_all_text):
-
+    '''Converts text to leet; converts "standard" leet words and converts all vowels and a proportion of consonants in other words'''
     split_text = input_all_text.split()
     leet_text = []
 
@@ -145,9 +159,55 @@ def convert_all_text(input_all_text):
 
     return " ".join(leet_text)
 
+def convert_extreme_text(input_all_text):
+    '''Converts text to leet; converts "standard" leet words and converts all letters in other words'''
+    split_text = input_all_text.split()
+    leet_text = []
+
+    for word in split_text:
+        if word[len(word)-1].upper() not in leet_alphabet.keys():
+            trunc_word = word[0:len(word)-1]
+            if trunc_word.lower() in leet_words.keys():
+                leet_text.append("".join([choice(leet_words[trunc_word.lower()]), word[len(word)-1]]))
+            else:
+                leet_text.append("".join([convert_extreme(trunc_word), word[len(word)-1]]))
+        else:
+            if word.lower() in leet_words.keys():
+                leet_text.append(choice(leet_words[word.lower()]))
+            else:
+                leet_text.append(convert_extreme(word))
+
+    return " ".join(leet_text)
 
 def main():
-    if len(sys.argv) > 1:
+
+    parser = argparse.ArgumentParser(description="""Converts text to leet. 'Standard' leet words are always converted.
+    By default vowels in non-standard leet words are always converted plus a proportion of consonants.""")
+    group = parser.add_mutually_exclusive_group()
+    parser.add_argument("-f", "--file", help="Input file name to convert.")
+    group.add_argument("-v", "--vowels", action="store_true", help="Convert only vowels in non-standard leet words.")
+    group.add_argument("-e", "--extreme", action="store_true", help="Convert all letters in non-standard leet words.")
+
+    args = parser.parse_args()
+
+    if args.file:
+        input_file = open(args.file)
+        lines = input_file.readlines()
+        input_file.close()
+    else:
+        lines = sys.stdin.readlines()
+
+    if args.vowels:
+        for line in lines:
+            print convert_vowels_text(line)
+    elif args.extreme:
+        for line in lines:
+            print convert_extreme_text(line)
+    else:
+        for line in lines:
+                print convert_all_text(line)
+
+    '''if len(sys.argv) > 1:
         if os.path.isfile(sys.argv[1]):
             input_file = open(sys.argv[1])
             lines = input_file.readlines()
@@ -161,7 +221,7 @@ def main():
         text = raw_input("Text to convert:")
         #print "Translation: ", convert(text)
         #print "Translation: ", convert_vowels(text)
-        print convert_all_text(text)
+        print convert_all_text(text)'''
     
 if __name__ == '__main__':
     main()
